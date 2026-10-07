@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- 
+    The main wrapper div now receives the dynamic class based on the season model property.
+    This is where the background color magic happens, overriding the body's default style.
+-->
+<div id="calendar-wrapper" class="season-@Model.CurrentSeason.ToLower()">
+
+    <header class="text-center py-4 mb-5">
+        <h1 class="display-2 fw-bold">The Celestial Calendar</h1>
+        <p class="lead text-muted mt-2">Displaying the current date and time, themed for your season.</p>
+    </header>
+
+    <!-- The main calendar display card -->
+    <div class="card p-5 shadow-lg border-4" style="border-color: #ccc;">
+        <div id="date-display">
+            <h2 id="day-of-week" class="glowing-text mb-1">Wednesday</h2>
+            <h1 id="month-date-year" class="glowing-text display-3 fw-bold mb-4">October 07, 2026</h1>
+            <div class="time-display glowing-text fs-2">
+                <span id="current-datetime">11:20:33 PM</span>
+            </div>
+        </div>
+
+        <!-- Seasonal and Holiday Info -->
+        <div class="mt-5 pt-4 border-top">
+            <p class="fs-5 mb-3">Current Season: <strong class="text-primary text-uppercase">@Model.CurrentSeason</strong></p>
+            
+            <!-- ISLES CALENDAR MONTH -->
+            <div class="alert alert-info p-3 mt-4 border-info shadow-sm" role="alert">
+                <h4 class="mb-0 fw-bold text-primary">The Isles Calendar: <span class="text-dark">@Model.HistoricalMonthName</span></h4>
+                <small>This is the current cultural month according to the The Keepers' Council.</small>
+            </div>
+
+            <h3 class="mt-5 text-center fw-bold">@Model.GreetingMessage</h3>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center py-4 mt-5 border-top">
+    <p class="text-muted mb-0">&copy; @DateTime.Now.Year - Calendar | <a asp-controller="Home" asp-action="Privacy">Privacy</a></p>
+</footer>
+
+@section Scripts {
+    <script>
+        // =========================================
+        // ⚡ CLIENT-SIDE CLOCK & THEME JAVASCRIPT
+        // =========================================
+        const dateDisplay = document.getElementById('month-date-year');
+        const timeDisplay = document.getElementById('current-datetime');
+        const dayOfWeek = document.getElementById('day-of-week');
+
+        function updateClock() {
+            const now = new Date();
+            
+            // 1. Time Update (Updates every second)
+            const optionsTime = { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true };
+            timeDisplay.textContent = now.toLocaleTimeString('en-US', optionsTime);
+
+            // 2. Date/Day Update (Updates every day)
+            const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = now.toLocaleDateString('en-US', optionsDate).replace(/,/g, '');
+
+            // Simple formatting to match the desired output structure (e.g., "Wednesday October 07")
+            let parts[] = formattedDate.split(' ');
+            dayOfWeek.textContent = parts[0].charAt(0).toUpperCase() + parts[0].slice(1); // Capitalize first letter
+            dateDisplay.innerHTML = `<span>${parts[1]}</span> ${parts[2]} ${now.getFullYear()}`;
+
+
+            // 3. Theme/Season Check (Optional: Could be used here if we wanted JS to override server-side theme)
+        }
+
+        // Run immediately on load and then every second
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+}
