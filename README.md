@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🗓️ The Old Celtic Calendar App
 
 A dynamic, themed web application demonstrating advanced ASP.NET Core MVC development principles combined with immersive world-building and complex state management. This project simulates a fictional calendar system based on the cultural lore of **The Old Celtic Calendar**.
@@ -50,3 +51,7 @@ This project successfully demonstrates the ability to:
 
 ---
 *Created as a demonstration of advanced software engineering skills.*
+=======
+# Fancy_Calendar_Of_Modern_And_Celtic_Months
+This is a pretty simple ASP.NET project, taking the current date and time and displaying the normal season, as well as the season the Celts used to use back in their time. Check the README.md file for more!
+>>>>>>> 277a35486963c58df9d71839ded7fb84f1b9d4e4
